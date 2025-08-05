@@ -1,0 +1,222 @@
+[
+    {
+        "title": "Meeting Notes - Q4 Planning",
+        "content": "Discussed budget allocation for next quarter. Marketing team needs 15% increase for digital campaigns. Engineering team requesting new development tools. Need to follow up with HR about hiring freeze status.",
+        "tags": ["work", "meeting", "planning", "budget"],
+        "createdAt": {
+            "$date": "2025-01-15T09:30:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-01-15T14:45:01.793Z"
+        }
+    },
+    {
+        "title": "Grocery Shopping List",
+        "content": "Milk, eggs, bread, bananas, chicken breast, rice, tomatoes, onions, garlic, olive oil, pasta, cheese, yogurt, apples, spinach, carrots, potatoes, butter, honey, coffee beans",
+        "tags": ["personal", "shopping", "food"],
+        "createdAt": {
+            "$date": "2025-01-20T16:20:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-01-20T16:20:01.793Z"
+        }
+    },
+    {
+        "title": "React Hooks Cheat Sheet",
+        "content": "useState: const [state, setState] = useState(initialValue)\nuseEffect: useEffect(() => { effect }, [dependencies])\nuseContext: const value = useContext(MyContext)\nuseRef: const ref = useRef(initialValue)\nuseCallback: const memoizedCallback = useCallback(() => { doSomething(a, b) }, [a, b])",
+        "tags": ["programming", "react", "javascript", "reference"],
+        "createdAt": {
+            "$date": "2025-02-03T11:15:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-10T08:30:01.793Z"
+        }
+    },
+    {
+        "title": "Book Recommendations",
+        "content": "1. The Pragmatic Programmer - David Thomas\n2. Clean Code - Robert C. Martin\n3. Design Patterns - Gang of Four\n4. Refactoring - Martin Fowler\n5. The Clean Coder - Robert C. Martin\n6. Code Complete - Steve McConnell",
+        "tags": ["books", "programming", "learning"],
+        "createdAt": {
+            "$date": "2025-01-28T19:45:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-15T13:20:01.793Z"
+        }
+    },
+    {
+        "title": "Weekend Trip Ideas",
+        "content": "1. Hiking at Mount Tamalpais\n2. Wine tasting in Napa Valley\n3. Beach day at Half Moon Bay\n4. Museum hopping in San Francisco\n5. Camping at Big Sur\n6. City exploration in Sacramento",
+        "tags": ["travel", "weekend", "ideas", "california"],
+        "createdAt": {
+            "$date": "2025-02-12T10:00:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-12T10:00:01.793Z"
+        }
+    },
+    {
+        "title": "Project Ideas for Portfolio",
+        "content": "1. E-commerce platform with React/Node.js\n2. Task management app with drag-and-drop\n3. Real-time chat application\n4. Weather dashboard with charts\n5. Recipe finder with API integration\n6. Personal finance tracker",
+        "tags": ["portfolio", "projects", "development", "ideas"],
+        "createdAt": {
+            "$date": "2025-01-10T15:30:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-18T09:15:01.793Z"
+        }
+    },
+    {
+        "title": "Daily Workout Routine",
+        "content": "Monday: Chest and Triceps\n- Bench press 3x8\n- Incline dumbbell press 3x10\n- Push-ups 3x15\n- Tricep dips 3x12\n\nTuesday: Back and Biceps\n- Pull-ups 3x8\n- Barbell rows 3x10\n- Lat pulldowns 3x12\n- Bicep curls 3x15",
+        "tags": ["fitness", "workout", "routine", "health"],
+        "createdAt": {
+            "$date": "2025-01-05T07:00:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-20T06:30:01.793Z"
+        }
+    },
+    {
+        "title": "Git Commands Reference",
+        "content": "git init - Initialize repository\ngit add . - Stage all files\ngit commit -m \"message\" - Commit changes\ngit push origin main - Push to remote\ngit pull origin main - Pull from remote\ngit branch feature-name - Create branch\ngit checkout feature-name - Switch branch\ngit merge feature-name - Merge branch",
+        "tags": ["git", "programming", "reference", "commands"],
+        "createdAt": {
+            "$date": "2025-01-22T12:45:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-01-22T12:45:01.793Z"
+        }
+    },
+    {
+        "title": "Movie Watchlist",
+        "content": "1. Inception (2010) - Christopher Nolan\n2. The Shawshank Redemption (1994) - Frank Darabont\n3. Pulp Fiction (1994) - Quentin Tarantino\n4. The Dark Knight (2008) - Christopher Nolan\n5. Fight Club (1999) - David Fincher\n6. Goodfellas (1990) - Martin Scorsese",
+        "tags": ["movies", "watchlist", "entertainment"],
+        "createdAt": {
+            "$date": "2025-02-08T20:15:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-08T20:15:01.793Z"
+        }
+    },
+    {
+        "title": "JavaScript Interview Questions",
+        "content": "1. What is closure?\n2. Explain event bubbling and capturing\n3. Difference between var, let, and const\n4. What is hoisting?\n5. Explain promises and async/await\n6. What is the event loop?\n7. Difference between == and ===\n8. Explain prototypal inheritance",
+        "tags": ["javascript", "interview", "questions", "programming"],
+        "createdAt": {
+            "$date": "2025-01-30T14:20:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-14T11:45:01.793Z"
+        }
+    },
+    {
+        "title": "Home Improvement Tasks",
+        "content": "1. Fix leaky faucet in kitchen\n2. Replace light bulbs in living room\n3. Clean gutters\n4. Paint bedroom walls\n5. Organize garage\n6. Install new door handles\n7. Replace air filter\n8. Seal windows for winter",
+        "tags": ["home", "improvement", "tasks", "maintenance"],
+        "createdAt": {
+            "$date": "2025-02-01T08:30:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-16T17:00:01.793Z"
+        }
+    },
+    {
+        "title": "Learning Goals for 2024",
+        "content": "1. Master TypeScript\n2. Learn React Native\n3. Understand Docker and Kubernetes\n4. Practice system design\n5. Contribute to open source\n6. Learn Python for data science\n7. Improve public speaking\n8. Read 24 books",
+        "tags": ["learning", "goals", "2024", "personal"],
+        "createdAt": {
+            "$date": "2025-01-01T00:00:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-22T10:30:01.793Z"
+        }
+    },
+    {
+        "title": "Recipe: Chicken Stir Fry",
+        "content": "Ingredients:\n- 2 chicken breasts, sliced\n- 2 cups mixed vegetables\n- 3 tbsp soy sauce\n- 2 tbsp oil\n- 2 cloves garlic, minced\n- 1 inch ginger, grated\n\nInstructions:\n1. Heat oil in wok\n2. Cook chicken until golden\n3. Add vegetables and stir fry\n4. Add soy sauce and seasonings\n5. Serve over rice",
+        "tags": ["recipe", "cooking", "chicken", "stir-fry"],
+        "createdAt": {
+            "$date": "2025-01-18T18:45:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-01-18T18:45:01.793Z"
+        }
+    },
+    {
+        "title": "Travel Bucket List",
+        "content": "1. Japan - Tokyo, Kyoto, Osaka\n2. Italy - Rome, Florence, Venice\n3. Iceland - Reykjavik, Golden Circle\n4. New Zealand - Auckland, Queenstown\n5. Thailand - Bangkok, Phuket\n6. France - Paris, Nice, Lyon\n7. Australia - Sydney, Melbourne\n8. Canada - Vancouver, Toronto",
+        "tags": ["travel", "bucket-list", "destinations"],
+        "createdAt": {
+            "$date": "2025-01-25T13:10:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-19T16:20:01.793Z"
+        }
+    },
+    {
+        "title": "CSS Grid Layout Examples",
+        "content": "Basic Grid:\n.grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}\n\nGrid Areas:\n.container {\n  display: grid;\n  grid-template-areas: 'header header' 'sidebar main' 'footer footer';\n  grid-template-columns: 200px 1fr;\n}",
+        "tags": ["css", "grid", "layout", "web-design"],
+        "createdAt": {
+            "$date": "2025-02-05T09:15:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-05T09:15:01.793Z"
+        }
+    },
+    {
+        "title": "Monthly Budget Tracker",
+        "content": "Income: $5,000\n\nExpenses:\n- Rent: $1,500\n- Utilities: $200\n- Groceries: $400\n- Transportation: $150\n- Entertainment: $200\n- Savings: $1,000\n- Emergency Fund: $300\n- Miscellaneous: $250",
+        "tags": ["budget", "finance", "tracking", "monthly"],
+        "createdAt": {
+            "$date": "2025-02-01T00:00:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-28T23:59:01.793Z"
+        }
+    },
+    {
+        "title": "Productivity Tips",
+        "content": "1. Use the Pomodoro Technique (25 min work, 5 min break)\n2. Create a daily priority list\n3. Eliminate distractions (phone on silent)\n4. Take regular breaks\n5. Use time blocking\n6. Review and reflect daily\n7. Set SMART goals\n8. Practice the 2-minute rule",
+        "tags": ["productivity", "tips", "self-improvement"],
+        "createdAt": {
+            "$date": "2025-01-12T06:30:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-25T14:45:01.793Z"
+        }
+    },
+    {
+        "title": "Node.js Best Practices",
+        "content": "1. Use async/await instead of callbacks\n2. Implement proper error handling\n3. Use environment variables for configuration\n4. Implement logging with Winston or Bunyan\n5. Use helmet for security headers\n6. Validate input with Joi or Yup\n7. Use PM2 for process management\n8. Implement rate limiting",
+        "tags": ["nodejs", "best-practices", "programming", "backend"],
+        "createdAt": {
+            "$date": "2025-01-08T16:20:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-17T12:10:01.793Z"
+        }
+    },
+    {
+        "title": "Morning Routine Checklist",
+        "content": "1. Wake up at 6:00 AM\n2. Drink a glass of water\n3. Do 10 minutes of stretching\n4. Take a cold shower\n5. Eat a healthy breakfast\n6. Review daily goals\n7. Check calendar and emails\n8. Start work by 7:30 AM",
+        "tags": ["routine", "morning", "productivity", "health"],
+        "createdAt": {
+            "$date": "2025-01-03T05:00:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-26T07:15:01.793Z"
+        }
+    },
+    {
+        "title": "API Design Principles",
+        "content": "1. Use RESTful conventions\n2. Implement proper HTTP status codes\n3. Use consistent naming conventions\n4. Include pagination for large datasets\n5. Implement proper error responses\n6. Use versioning (v1, v2)\n7. Include rate limiting\n8. Provide comprehensive documentation",
+        "tags": ["api", "design", "principles", "backend"],
+        "createdAt": {
+            "$date": "2025-02-07T11:30:01.793Z"
+        },
+        "updatedAt": {
+            "$date": "2025-02-21T15:45:01.793Z"
+        }
+    }
+]

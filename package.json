@@ -1,0 +1,32 @@
+{
+    "name": "notes-api",
+    "version": "1.0.0",
+    "type": "module",
+    "author": "Roy Ho",
+    "license": "MIT",
+    "scripts": {
+        "dev": "node --watch server.js",
+        "test": "vitest",
+        "test:run": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "reset-db": "node test-reset.js"
+    },
+    "keywords": ["notes", "notes api"],
+    "description": "",
+    "dependencies": {
+        "bad-words": "^4.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.1",
+        "express": "^5.1.0",
+        "express-rate-limit": "^8.0.1",
+        "mongoose": "^8.17.0",
+        "react-icons": "^5.5.0",
+        "sanitize-html": "^2.17.0"
+    },
+    "devDependencies": {
+        "vitest": "^1.3.1",
+        "supertest": "^7.0.0",
+        "mongodb-memory-server": "^9.1.6",
+        "@vitest/coverage-v8": "^1.3.1"
+    }
+}

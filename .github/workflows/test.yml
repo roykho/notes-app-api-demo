@@ -1,0 +1,117 @@
+name: Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: notes-ui/package-lock.json
+
+    - name: Install frontend dependencies
+      working-directory: notes-ui
+      run: |
+        rm -rf node_modules package-lock.json
+        npm install
+        npm rebuild
+
+    - name: Install Rollup Linux dependency
+      working-directory: notes-ui
+      run: npm install @rollup/rollup-linux-x64-gnu
+
+    - name: Run frontend tests
+      working-directory: notes-ui
+      run: npm run test:run
+
+    - name: Run frontend tests with coverage
+      working-directory: notes-ui
+      run: npm run test:coverage
+
+    - name: Upload frontend coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: notes-ui/coverage/lcov.info
+        flags: frontend
+        name: frontend-coverage
+
+  test-backend:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: notes-api/package-lock.json
+
+    - name: Install backend dependencies
+      working-directory: notes-api
+      run: npm ci
+
+    - name: Run backend tests
+      working-directory: notes-api
+      run: npm run test:run
+      env:
+        MONGODB_URI: mongodb://localhost:27017/test
+
+    - name: Run backend tests with coverage
+      working-directory: notes-api
+      run: npm run test:coverage
+      env:
+        MONGODB_URI: mongodb://localhost:27017/test
+
+    - name: Upload backend coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: notes-api/coverage/lcov.info
+        flags: backend
+        name: backend-coverage
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: notes-ui/package-lock.json
+
+    - name: Install frontend dependencies
+      working-directory: notes-ui
+      run: |
+        rm -rf node_modules package-lock.json
+        npm install
+        npm rebuild
+
+    - name: Install Rollup Linux dependency
+      working-directory: notes-ui
+      run: npm install @rollup/rollup-linux-x64-gnu
+
+    - name: Run linting
+      working-directory: notes-ui
+      run: npm run lint

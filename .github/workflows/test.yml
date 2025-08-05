@@ -32,13 +32,13 @@ jobs:
     - name: Run backend tests
       run: npm run test:run
       env:
-        MONGODB_URI: mongodb://localhost:27017/test
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
     - name: Run backend tests with coverage
       working-directory: notes-api
       run: npm run test:coverage
       env:
-        MONGODB_URI: mongodb://localhost:27017/test
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
     - name: Upload backend coverage to Codecov
       uses: codecov/codecov-action@v3

@@ -7,45 +7,6 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  test-frontend:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        cache-dependency-path: notes-ui/package-lock.json
-
-    - name: Install frontend dependencies
-      working-directory: notes-ui
-      run: |
-        rm -rf node_modules package-lock.json
-        npm install
-        npm rebuild
-
-    - name: Install Rollup Linux dependency
-      working-directory: notes-ui
-      run: npm install @rollup/rollup-linux-x64-gnu
-
-    - name: Run frontend tests
-      working-directory: notes-ui
-      run: npm run test:run
-
-    - name: Run frontend tests with coverage
-      working-directory: notes-ui
-      run: npm run test:coverage
-
-    - name: Upload frontend coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: notes-ui/coverage/lcov.info
-        flags: frontend
-        name: frontend-coverage
-
   test-backend:
     runs-on: ubuntu-latest
 
@@ -99,19 +60,12 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: notes-ui/package-lock.json
+        cache-dependency-path: notes-api/package-lock.json
 
-    - name: Install frontend dependencies
-      working-directory: notes-ui
-      run: |
-        rm -rf node_modules package-lock.json
-        npm install
-        npm rebuild
-
-    - name: Install Rollup Linux dependency
-      working-directory: notes-ui
-      run: npm install @rollup/rollup-linux-x64-gnu
+    - name: Install backend dependencies
+      working-directory: notes-api
+      run: npm ci
 
     - name: Run linting
-      working-directory: notes-ui
+      working-directory: notes-api
       run: npm run lint

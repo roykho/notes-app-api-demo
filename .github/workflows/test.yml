@@ -24,14 +24,12 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: notes-api/package-lock.json
+        cache-dependency-path: package-lock.json
 
     - name: Install backend dependencies
-      working-directory: notes-api
       run: npm ci
 
     - name: Run backend tests
-      working-directory: notes-api
       run: npm run test:run
       env:
         MONGODB_URI: mongodb://localhost:27017/test
@@ -45,7 +43,7 @@ jobs:
     - name: Upload backend coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
-        file: notes-api/coverage/lcov.info
+        file: coverage/lcov.info
         flags: backend
         name: backend-coverage
 
@@ -60,12 +58,10 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: notes-api/package-lock.json
+        cache-dependency-path: package-lock.json
 
     - name: Install backend dependencies
-      working-directory: notes-api
       run: npm ci
 
     - name: Run linting
-      working-directory: notes-api
       run: npm run lint

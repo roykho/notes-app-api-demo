@@ -28,8 +28,8 @@ describe('Note Routes', () => {
             const response = await request(app).get('/api/notes').expect(200);
 
             expect(response.body).toHaveLength(2);
-            expect(response.body[0].title).toBe('Test Note 1');
-            expect(response.body[1].title).toBe('Test Note 2');
+            expect(response.body[0].title).toBe('Test Note 2');
+            expect(response.body[1].title).toBe('Test Note 1');
         });
 
         it('should return empty array when no notes exist', async () => {

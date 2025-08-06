@@ -62,7 +62,7 @@ app.use('/api/notes', modifyNoteLimiter);
 app.use('/api/notes', notesRouter);
 
 // Reset database endpoint for cron jobs - calls the existing reset-database.js handler
-app.post('/api/reset-database', resetDatabaseHandler);
+app.get('/api/reset-database', resetDatabaseHandler);
 
 // Handle favicon requests to prevent 404 errors
 app.get('/favicon.ico', (req, res) => {

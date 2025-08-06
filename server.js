@@ -60,6 +60,15 @@ app.use('/api/notes', modifyNoteLimiter);
 
 app.use('/api/notes', notesRouter);
 
+// Handle favicon requests to prevent 404 errors
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end();
+});
+
+app.get('/favicon.png', (req, res) => {
+    res.status(204).end();
+});
+
 app.use((req, res, next) => {
     const error = new Error(`Not found - ${req.originalUrl}`);
     res.status(404);

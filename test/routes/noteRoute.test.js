@@ -2,6 +2,7 @@ import request from 'supertest';
 import express from 'express';
 import noteRoute from '../../routes/noteRoute.js';
 import Note from '../../models/note.js';
+import cache from '../../utils/cache.js';
 
 const app = express();
 app.use(express.json());
@@ -280,6 +281,178 @@ describe('Note Routes', () => {
             const fakeId = '507f1f77bcf86cd799439011';
 
             await request(app).delete(`/api/notes/${fakeId}`).expect(404);
+        });
+    });
+
+    describe('Caching Behavior', () => {
+        it('should cache GET requests and return cached data on subsequent requests', async () => {
+            // Create a test note
+            const note = new Note({
+                title: 'Cached Note',
+                content: 'This note should be cached',
+                tags: ['cache', 'test'],
+            });
+            await note.save();
+
+            // First request - should hit database and cache the result
+            const firstResponse = await request(app).get('/api/notes').expect(200);
+            expect(firstResponse.body).toHaveLength(1);
+            expect(firstResponse.body[0].title).toBe('Cached Note');
+
+            // Verify data is cached
+            const cachedData = await cache.get('notes:/api/notes');
+            expect(cachedData).toBeDefined();
+            expect(cachedData).toHaveLength(1);
+            expect(cachedData[0].title).toBe('Cached Note');
+
+            // Second request - should return cached data
+            const secondResponse = await request(app).get('/api/notes').expect(200);
+            expect(secondResponse.body).toHaveLength(1);
+            expect(secondResponse.body[0].title).toBe('Cached Note');
+        });
+
+        it('should cache individual note requests', async () => {
+            const note = new Note({
+                title: 'Individual Cached Note',
+                content: 'This individual note should be cached',
+                tags: ['individual', 'cache'],
+            });
+            const savedNote = await note.save();
+
+            // First request - should hit database and cache
+            const firstResponse = await request(app)
+                .get(`/api/notes/${savedNote._id}`)
+                .expect(200);
+            expect(firstResponse.body[0].title).toBe('Individual Cached Note');
+
+            // Verify individual note is cached
+            const cachedData = await cache.get(`notes:/api/notes/${savedNote._id}`);
+            expect(cachedData).toBeDefined();
+            expect(cachedData[0].title).toBe('Individual Cached Note');
+
+            // Second request - should return cached data
+            const secondResponse = await request(app)
+                .get(`/api/notes/${savedNote._id}`)
+                .expect(200);
+            expect(secondResponse.body[0].title).toBe('Individual Cached Note');
+        });
+
+        it('should invalidate cache when creating a new note', async () => {
+            // First, get notes to populate cache
+            await request(app).get('/api/notes').expect(200);
+
+            // Verify cache is populated
+            let cachedData = await cache.get('notes:/api/notes');
+            expect(cachedData).toBeDefined();
+
+            // Create a new note
+            const noteData = {
+                title: 'New Note After Cache',
+                content: 'This should invalidate cache',
+                tags: ['invalidation'],
+            };
+
+            await request(app)
+                .post('/api/notes')
+                .send(noteData)
+                .expect(201);
+
+            // Verify cache is invalidated
+            cachedData = await cache.get('notes:/api/notes');
+            expect(cachedData).toBeNull();
+
+            // Next GET request should hit database again
+            const response = await request(app).get('/api/notes').expect(200);
+            expect(response.body).toHaveLength(1);
+            expect(response.body[0].title).toBe('New Note After Cache');
+        });
+
+        it('should invalidate cache when updating a note', async () => {
+            const note = new Note({
+                title: 'Original Title',
+                content: 'Original content',
+                tags: ['original'],
+            });
+            const savedNote = await note.save();
+
+            // Cache the note list and individual note
+            await request(app).get('/api/notes').expect(200);
+            await request(app).get(`/api/notes/${savedNote._id}`).expect(200);
+
+            // Verify cache is populated
+            let listCache = await cache.get('notes:/api/notes');
+            let noteCache = await cache.get(`notes:/api/notes/${savedNote._id}`);
+            expect(listCache).toBeDefined();
+            expect(noteCache).toBeDefined();
+
+            // Update the note
+            const updateData = {
+                title: 'Updated Title',
+                content: 'Updated content',
+            };
+
+            await request(app)
+                .put(`/api/notes/${savedNote._id}`)
+                .send(updateData)
+                .expect(200);
+
+            // Verify cache is invalidated
+            listCache = await cache.get('notes:/api/notes');
+            noteCache = await cache.get(`notes:/api/notes/${savedNote._id}`);
+            expect(listCache).toBeNull();
+            expect(noteCache).toBeNull();
+
+            // Next GET requests should hit database again
+            const listResponse = await request(app).get('/api/notes').expect(200);
+            expect(listResponse.body[0].title).toBe('Updated Title');
+
+            const noteResponse = await request(app)
+                .get(`/api/notes/${savedNote._id}`)
+                .expect(200);
+            expect(noteResponse.body[0].title).toBe('Updated Title');
+        });
+
+        it('should invalidate cache when deleting a note', async () => {
+            const note = new Note({
+                title: 'Note to Delete',
+                content: 'This note will be deleted',
+                tags: ['delete'],
+            });
+            const savedNote = await note.save();
+
+            // Cache the note list and individual note
+            await request(app).get('/api/notes').expect(200);
+            await request(app).get(`/api/notes/${savedNote._id}`).expect(200);
+
+            // Verify cache is populated
+            let listCache = await cache.get('notes:/api/notes');
+            let noteCache = await cache.get(`notes:/api/notes/${savedNote._id}`);
+            expect(listCache).toBeDefined();
+            expect(noteCache).toBeDefined();
+
+            // Delete the note
+            await request(app)
+                .delete(`/api/notes/${savedNote._id}`)
+                .expect(200);
+
+            // Verify cache is invalidated
+            listCache = await cache.get('notes:/api/notes');
+            noteCache = await cache.get(`notes:/api/notes/${savedNote._id}`);
+            expect(listCache).toBeNull();
+            expect(noteCache).toBeNull();
+
+            // Next GET request should hit database again
+            const response = await request(app).get('/api/notes').expect(200);
+            expect(response.body).toHaveLength(0);
+        });
+
+        it('should handle cache misses gracefully', async () => {
+            // Clear cache first
+            await cache.invalidatePattern('notes:*');
+
+            // Request should work even with no cache
+            const response = await request(app).get('/api/notes').expect(200);
+            expect(response.body).toHaveLength(0);
         });
     });
 });

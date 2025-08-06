@@ -2,10 +2,11 @@ import express from 'express';
 import Note from '../models/note.js';
 import sanitizeHtml from 'sanitize-html';
 import { Filter } from 'bad-words';
+import { cacheMiddleware, invalidateCache, invalidateNoteCache } from '../middleware/cacheMiddleware.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', cacheMiddleware(300), async (req, res, next) => {
     try {
         const notes = await Note.find().sort({ createdAt: -1 });
         res.json(notes);
@@ -14,7 +15,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', cacheMiddleware(300), async (req, res, next) => {
     try {
         const { id } = req.params;
         const note = await Note.find({ _id: id });
@@ -24,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', invalidateCache(), async (req, res, next) => {
     try {
         const { title, content, tags } = req.body;
 
@@ -55,7 +56,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', invalidateNoteCache(), async (req, res, next) => {
     try {
         const { id } = req.params;
         const filter = new Filter();
@@ -103,7 +104,7 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', invalidateNoteCache(), async (req, res, next) => {
     try {
         const { id } = req.params;
         const deletedNote = await Note.findByIdAndDelete(id);

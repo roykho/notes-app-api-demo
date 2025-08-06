@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import notesRouter from './routes/noteRoute.js';
+import cacheRouter from './routes/cacheRoute.js';
 import resetDatabaseHandler from './api/reset-database.js';
 
 dotenv.config();
@@ -60,6 +61,9 @@ app.use('/api/notes', createNoteLimiter);
 app.use('/api/notes', modifyNoteLimiter);
 
 app.use('/api/notes', notesRouter);
+
+// Cache management routes
+app.use('/api/cache', cacheRouter);
 
 // Reset database endpoint for cron jobs - calls the existing reset-database.js handler
 app.get('/api/reset-database', resetDatabaseHandler);

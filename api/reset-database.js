@@ -1,8 +1,8 @@
 import { resetDatabase } from '../utils/databaseReset.js';
 
 export default async function handler(req, res) {
-    // Only allow POST requests
-    if (req.method !== 'POST') {
+    // Allow POST requests and GET requests for cron jobs
+    if (req.method !== 'POST' && req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 

@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import notesRouter from './routes/noteRoute.js';
+import resetDatabaseHandler from './api/reset-database.js';
 
 dotenv.config();
 connectDB();
@@ -59,6 +60,9 @@ app.use('/api/notes', createNoteLimiter);
 app.use('/api/notes', modifyNoteLimiter);
 
 app.use('/api/notes', notesRouter);
+
+// Reset database endpoint for cron jobs - calls the existing reset-database.js handler
+app.post('/api/reset-database', resetDatabaseHandler);
 
 // Handle favicon requests to prevent 404 errors
 app.get('/favicon.ico', (req, res) => {

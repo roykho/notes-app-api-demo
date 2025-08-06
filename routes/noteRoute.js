@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        const notes = await Note.find();
+        const notes = await Note.find().sort({ createdAt: -1 });
         res.json(notes);
     } catch (err) {
         next(err);
